@@ -11,8 +11,7 @@ import (
 )
 
 type Config struct {
-	Interval time.Duration `env:"PROVIDE_INTERVAL" env-default:"60000000000"`
-	NatsURL  string        `env:"NATS_URL"`
+	NatsURL string `env:"NATS_URL"`
 }
 
 func main() {
@@ -30,7 +29,7 @@ func main() {
 		"message": "hello world",
 	})
 
-	ticker := time.NewTicker(cfg.Interval)
+	ticker := time.NewTicker(time.Minute)
 	for {
 		<-ticker.C
 		nc.Publish("test.*", data)
